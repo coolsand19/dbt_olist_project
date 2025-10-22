@@ -54,3 +54,5 @@ models:
       +materialized: view
     
     # Keep example folder for reference (optional - you can remove this later)
+
+
