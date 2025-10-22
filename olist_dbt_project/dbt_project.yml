@@ -1,0 +1,56 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'olist_dbt_project'
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'olist_dbt_project'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+# 1. CONFIGURE SEEDS
+# Seeds will be loaded into the RAW schema
+seeds:
+  olist_dbt_project:
+    +database: OLIEST_DB
+    +schema: RAW
+
+# 2. CONFIGURE MODELS
+# This tells dbt where to build your models based on
+# their sub-directory in the 'models' folder.
+models:
+  olist_dbt_project:
+    # Any .sql file in your 'models/bronze' directory
+    bronze:
+      +database: OLIEST_DB
+      +schema: ANALYTICS_BR
+      +materialized: table  # Bronze layer is often views on top of RAW
+
+    # Any .sql file in your 'models/silver' directory
+    silver:
+      +database: OLIEST_DB
+      +schema: ANALYTICS_SL
+      +materialized: table
+
+    # Any .sql file in your 'models/gold' directory
+    gold:
+      +database: OLIEST_DB
+      +schema: ANALYTICS_GD
+      +materialized: view
+    
+    # Keep example folder for reference (optional - you can remove this later)
