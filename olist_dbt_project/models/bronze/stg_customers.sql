@@ -9,6 +9,8 @@
 -- Bronze/Staging layer for Customers
 -- Source: olist_customers_dataset seed
 -- This model creates a cleaned and standardized version of the raw customer data
+
+
 -- Source columns:
 -- "customer_id","customer_unique_id","customer_zip_code_prefix","customer_city","customer_state"
 
