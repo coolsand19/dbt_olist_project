@@ -2,3 +2,16 @@
 target/
 dbt_packages/
 logs/
+
+# Python virtual env
+.venv/
+
+# VS Code workspace
+.vscode/
+
+# Local dbt profile with credentials
+profiles.yml
+
+# OS files
+*.swp
+*.DS_Store
