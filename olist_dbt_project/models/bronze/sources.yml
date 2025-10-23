@@ -1,0 +1,80 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw data loaded from seeds into RAW schema"
+    database: OLIEST_DB
+    schema: RAW
+    tables:
+      - name: olist_customers_dataset
+        description: "Brazilian e-commerce customer data from Olist"
+        meta:
+          bronze_model: "stg_customers"
+        columns:
+          - name: customer_id
+            description: "Unique identifier for each customer order"
+          - name: customer_unique_id
+            description: "Unique identifier for each customer (can have multiple orders)"
+          - name: customer_zip_code_prefix
+            description: "First 5 digits of customer zip code"
+          - name: customer_city
+            description: "Customer city name"
+          - name: customer_state
+            description: "Customer state code"
+      
+      - name: olist_orders_dataset
+        description: "Order information from Olist e-commerce"
+        meta:
+          bronze_model: "stg_orders"
+        columns:
+          - name: order_id
+            description: "Unique identifier for the order"
+          - name: customer_id
+            description: "Reference to customer who placed the order"
+          - name: order_status
+            description: "Current status of the order (e.g., delivered, shipped, canceled)"
+          - name: order_purchase_timestamp
+            description: "Timestamp when the order was placed"
+          - name: order_approved_at
+            description: "Timestamp when the order was approved by seller/payment system"
+          - name: order_delivered_carrier_date
+            description: "When the carrier picked up the order"
+          - name: order_delivered_customer_date
+            description: "When the customer received the order"
+          - name: order_estimated_delivery_date
+            description: "Estimated delivery date provided at purchase"
+      
+      - name: olist_order_items_dataset
+        description: "Items within each order"
+        meta:
+          bronze_model: "stg_order_items"
+      
+      - name: olist_products_dataset
+        description: "Product catalog information"
+        meta:
+          bronze_model: "stg_products"
+      
+      - name: olist_sellers_dataset
+        description: "Seller information"
+        meta:
+          bronze_model: "stg_sellers"
+      
+      - name: olist_order_payments_dataset
+        description: "Payment information for orders"
+        meta:
+          bronze_model: "stg_order_payments"
+      
+      - name: olist_order_reviews_dataset
+        description: "Customer reviews for orders"
+        meta:
+          bronze_model: "stg_order_reviews"
+      
+      - name: olist_geolocation_dataset
+        description: "Geolocation data for Brazilian zip codes"
+        meta:
+          bronze_model: "stg_geolocation"
+      
+      - name: product_category_name_translation
+        description: "Translation of product categories from Portuguese to English"
+        meta:
+          bronze_model: "stg_product_category_translation"
